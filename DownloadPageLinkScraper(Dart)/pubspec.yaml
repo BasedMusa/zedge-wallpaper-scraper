@@ -1,0 +1,13 @@
+name: ZedgeKeywordScraper
+description: simple cli for scraping links of download pages for a specific keyword at www.zedge.net
+version: 1.0.0
+author: musa usman
+
+environment:
+  sdk: '>=2.0.0 <3.0.0'
+
+#dependencies:
+#  path: ^1.4.1
+
+dev_dependencies:
+  test: ^1.0.0
