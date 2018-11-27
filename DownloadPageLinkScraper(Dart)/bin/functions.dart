@@ -7,12 +7,6 @@ Future<bool> scrapeKeywordFromSiteMapToFile(
   int scrapedLinksCounter = 0;
   bool isSuccessful = true;
   try {
-    File file = new File('scraped/${keyword}_wallpaper_links.txt');
-    RandomAccessFile randomAccessFile = file.openSync(mode: FileMode.WRITE);
-    randomAccessFile.writeStringSync('');
-    randomAccessFile.flushSync();
-    randomAccessFile.closeSync();
-
     String siteMapURL = "https://www.zedge.net/sitemap/46/index/";
     String pageDOM = await HTTP.read(siteMapURL);
 
@@ -39,19 +33,19 @@ Future<bool> scrapeKeywordFromSiteMapToFile(
                 'https://www.zedge.net${element.attributes['href']}';
 
             ///Write link to file
+            File file = new File('scraped/${keyword}_wallpaper_links.txt');
             RandomAccessFile randomAccessFile =
                 file.openSync(mode: FileMode.APPEND);
             randomAccessFile.writeStringSync('$wallpaperDownloadPageURL\n');
             randomAccessFile.flushSync();
             randomAccessFile.closeSync();
 
-            scrapedLinksCounter++;
-
             stdout.writeln('($scrapedLinksCounter) $wallpaperDownloadPageURL');
           } else {
             stdout.writeln(
                 '($scrapedLinksCounter) Skipping wallpaper...(Not in start range)');
           }
+          scrapedLinksCounter++;
         }
       }
     }
